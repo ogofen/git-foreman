@@ -1,0 +1,11 @@
+[rhel-65-zstream]
+name=RHEL_65_Z
+baseurl=http://download.eng.bos.redhat.com/rel-eng/repos/RHEL-6.5-Z/x86_64/
+enabled=0
+gpgcheck=0
+     
+[rhev-65-channel]
+name=RHEV_65
+baseurl=http://download.lab.bos.redhat.com/rel-eng/repos/rhevh-rhel-6.5-candidate/x86_64/
+enabled=1
+gpgcheck=0

@@ -1,0 +1,20 @@
+#!/bin/bash
+function add_host {
+  curl --insecure --header "Content-Type:application/xml" -X POST \
+  -d @/root/Rest-Api-Qe/$1.xml  --user "admin@internal:qum5net" \
+  https://$HOSTNAME/api/hosts
+  }
+function engine-action {
+    if [ -z $1 ];then
+        echo "engine-action needs 'clean' or 'setup' value"
+        exit
+    fi
+    if [ $1 = 'clean' ];then
+        engine-cleanup --config=/root/cleanup.conf
+    fi
+    if [ $1 = 'setup' ];then
+        engine-setup --config=/root/config.setup
+    fi
+}
+alias less!="vi -u NONE -R /var/log/ovirt-engine/engine.log -S \
+/root/log.vim '+set nonu' 'set wrap'"
