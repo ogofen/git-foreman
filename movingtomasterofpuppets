@@ -1,0 +1,14 @@
+#!/bin/bash
+
+ssh-copy-id -i /root/.ssh/id_rsa root@$1
+ssh-copy-id -i /root/id_rsa      root@$1
+echo $1>HostRequest.txt
+sed "s/NEXT/$1/g" /root/puppet.conf >/root/puppet.tmp
+scp /root/puppet.tmp root@$1:/etc/puppet/puppet.conf
+ssh root@$1 puppet resource service ensure=stopped
+sleep 2
+ssh root@$1 rm -rf /var/lib/puppet/ssl
+sh /root/puppetClean.sh
+ssh root@$1 puppet agent -t
+sh /root/puppetSign.sh
+ssh root@$1 puppet agent -t
